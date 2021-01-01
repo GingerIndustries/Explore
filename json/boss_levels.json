@@ -1,0 +1,14 @@
+{
+  "spooder_room": {
+    "enemies": [
+      "spooder"
+    ],
+    "boss": "mama_spooder",
+    "loot": [
+      "spooder_trophy",
+      "steel_sword"
+    ],
+    "waves": 1,
+    "difficulty": 4
+  }
+}
