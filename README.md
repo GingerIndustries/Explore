@@ -19,5 +19,6 @@ Known buggles
 
 About the authors
 -----------------
-tehgingergod/Blue: A bored programmer with too much time on their hands. They run 2 bots on Trollbox.
+tehgingergod/Blue/GingerIndustries: A bored programmer with too much time on their hands.
+
 CrustyFriends: Creative designer for Explore
