@@ -1,9 +1,10 @@
 from colorama import Fore
 import random
-print("Loaded spoopy codes")
+
 
 class Enemy():
     def __init__(self, enemy_data):
+        #print("init")
         self.enemy_data = enemy_data
         self.max_health = enemy_data.get("health")
         self.cur_health = self.max_health
@@ -14,6 +15,7 @@ class Enemy():
         if random.choice(range((monster.get("difficulty") + 1))) != 0:
             damageTaken = random.randint(1, (
             1 + (round(random.random() * 10 * monster.get("difficulty")))))
+            
             print(Fore.RED + self.name + " attacks for " + str(damageTaken) +
             " damage!" + Fore.RESET + "\n")
             return damageTaken
@@ -31,9 +33,9 @@ class Enemy():
     def getMaxHealth(self):
         return self.max_health
 
-    def takeDamage(self, newHealthValue):
-        self._setHealth(newHealthValue)
-        #print(Fore.RED + self.name + " Health: [" + Fore.RESET + str(self.cur_health) + Fore.RED + "]" + Fore.RESET)
+    def takeDamage(self, amount):
+        self.cur_health -= amount
+        print(Fore.RED + self.name + " Health: [" + Fore.RESET + str(self.cur_health) + Fore.RED + "]" + Fore.RESET)
 
     def die(self):
         print(Fore.RED + self.name + " has died!" + Fore.RESET)
@@ -42,3 +44,4 @@ class Enemy():
             return self.enemy_data.get("loot"), xp
         else:
             return False, xp
+print("Loaded spoopy codes")

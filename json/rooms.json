@@ -100,7 +100,7 @@
         "north",
         "south"
       ],
-      "loot": ["key"],
+      "loot": ["vault_key"],
       "neighboring_rooms": {
         "east": "dark_room",
         "west": "vault_room",

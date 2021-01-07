@@ -1,4 +1,5 @@
 print("Becoming self-aware...")
+print("Fixing the fighting code...") #haha funny
 from colorama import Fore, Back
 import enemy
 import term
@@ -71,11 +72,11 @@ def enemiesAttack(enemies_objects):
         damageTaken = item.attack()
         if item.getCurHealth() <= 0:
             item.die()
-            enemies_objects.delete(item)
+            enemies_objects.remove(item)
         if damageTaken:
             takeDamage(damageTaken)
 
-
+#Thanks to @Simona Chovancová on stackoverflow for this
 def getStructNameFromValue(key, value):
     for name, content in item_data.items():
         if key in content.keys() and content[key] == value:
@@ -276,9 +277,11 @@ def attackMonster(enemy_data):
     else:
         print("You attack " + enemy_data[0].getName() + " for " +
               str(player_damage) + " damage!")
-        enemy_health = (enemy_data[0].getCurHealth() - player_damage)
-        enemy_data[0].takeDamage((enemy_health))
+        enemy_data[0].takeDamage(player_damage)
 
+#thanks to @python_user on stackoverflow for this
+def checkLists(listone, listtwo):
+    return len(listone) == len(listtwo) and all(isinstance(i, enemy.Enemy) is isinstance(j, enemy.Enemy) for i, j in zip(listone, listtwo))
 
 def printRoom(roomID):
     global enemies_list
@@ -303,7 +306,12 @@ def printRoom(roomID):
       print("None")
     print(Fore.RESET)
     triggerEvents(roomID)
-    enemies_list = loadEnemies(room)
+    _temp_enemies_list = loadEnemies(room)
+    #print(enemies_list)
+    #print(_temp_enemies_list)
+    if not checkLists(enemies_list, _temp_enemies_list):
+      #print("firsttime")
+      enemies_list = _temp_enemies_list
     if len(enemies_list) != 0:
         enemiesAttack(enemies_list)
 
@@ -363,7 +371,7 @@ def getLoot(roomID, itemName):
                 elif item.get("rarity") == "rare":
                     print(Fore.CYAN, end="")
                 elif item.get("rarity") == "key":
-                  print(Fore.PURPLE)
+                  print(Fore.MAGENTA)
                 print(item.get("name"))
                 if item.get("name") == "Gold Coins":
                     monies += 10
