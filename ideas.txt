@@ -68,7 +68,7 @@ Good food- +10 hp
 Fighting:
 lol 69 lines
 When entering a room with a mob, one of two things happens
-If the mob is a normal monster, it will attack once and then the prompt comes back up. Then you can do one of 3 things. You can either attack (more types of attack get onlicked later), run, or something else. If you attack, the monster takes the requisite amount of damage, as well as other effects associated with teh attack, attacks again, and tehn you're back at the prompt. If you run, you go back to the room you were in. If you do something else, that action completes and then the monster attacks again, with the exception of the following commands:
+If the mob is a normal monster, it will attack once and then the prompt comes back up. Then you can do one of 3 things. You can either attack (more types of attack get onlickedn (the hell is an) later), run, or something else. If you attack, the monster takes the requisite amount of damage, as well as other effects associated with teh attack, attacks again, and tehn you're back at the prompt. If you run, you go back to the room you were in. If you do something else, that action completes and then the monster attacks again, with the exception of the following commands:
 1. inventory (because that's how it always works)
 2. hold (again, thats how it works)
 However, if the mob is a neutral type, you will be given the option to battle it instead. Unless you battle it or antagonize it, it will not attack you.
@@ -78,12 +78,64 @@ Stacked- Acquire every item in the game
 Explorer- Visit every room
 Curiosity does not go unrewarded- Use the debug command
 Stronk- Kill a monster
-
+Timberrrrrr! - Kill a monster with a log
 Failure- Die over 3 times fighting the same monster
-Sustained- Eat some food 
+Sustained- Eat some food
+Patience- Wait in a room 3 times in a row 
 
 Behind the Gate:
 An armory containing some armor and maybe some weapons
 
 Endgame idea:
-things in the dungeon are being held captive by the boss monster, (try to incorperate this into the story) and you need to kill it and save them. Change ogre dialouge to say he is guarding the armory because the boss monster threatens him, but will let you pass for 10 monies, maybe a ghost in the dungeon that tells you about the boss, and something in the intro 
+Things in the dungeon are being held captive by the boss monster, (try to incorperate this into the story) and you need to kill it and save them. Change ogre dialouge to say he is guarding the armory because the boss monster threatens him, but will let you pass for 10 monies, maybe a ghost in the dungeon that tells you about the boss, and something in the intro 
+
+Waiting idea:
+You should have the option to wait in a room, and if you choose to wait in certain rooms, a monster will attack you (ex. sewer room, rat room, sarcophogus chamber)
+
+Credits:
+   Programmer 
+tehgingergod/Blue
+
+Creative designer
+ CrustyFriends
+
+  Technician
+tehgingergod/Blue
+
+   Developer
+tehgingergod/Blue
+
+    Story
+CrustyFriends 
+
+    Idea
+CrustyFriends 
+
+Official Testers
+ CrustyFriends
+tehgingergod/Blue
+
+Level Design
+CrustyFriends 
+
+Special Thanks
+   Lirynx
+Simona Chovancová
+  python_user
+
+Thanks for playing our game!
+
+  _____ _                 _           __               
+ /__   | |__   __ _ _ __ | | _____   / _| ___  _ __    
+   / /\| '_ \ / _` | '_ \| |/ / __| | |_ / _ \| '__|   
+  / /  | | | | (_| | | | |   <\__ \ |  _| (_) | |      
+  \/   __| |_|\__,_|__ |_|_|\_|___/ |_|  \___/|_|      
+ _ __ | | __ _ _   _(_)_ __   __ _    ___  _   _ _ __  
+| '_ \| |/ _` | | | | | '_ \ / _` |  / _ \| | | | '__| 
+| |_) | | (_| | |_| | | | | | (_| | | (_) | |_| | |    
+| .__/|_|\__,_|\__, |_|_| |_|\__, |  \___/ \__,_|_|    
+|_|         __ _____ _ _ __ _____/___  / \             
+           / _` |/ _` | '_ ` _ \ / _ \/  /             
+          | (_| | (_| | | | | | |  __/\_/              
+           \__, |\__,_|_| |_| |_|\___\/                
+           |___/

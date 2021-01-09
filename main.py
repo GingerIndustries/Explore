@@ -1,5 +1,5 @@
 print("Becoming self-aware...")
-print("Fixing the fighting code...") #haha funny
+print("Fixing the fighting code...")  #haha funny
 from colorama import Fore, Back
 import enemy
 import term
@@ -23,6 +23,10 @@ player_damage = 5
 enemies_list = []
 achievements_list = []
 puzzle_tries_remaining = 3
+
+#Local settings
+typewriter_speed = 0.04
+typewriter_choice = 2
 
 BLINKING_TEXT = '\x1b[5m'
 RESET_FANCY_TEXT = '\x1b[m'
@@ -50,7 +54,7 @@ def typewriter(text, isFast=False):
         print(x, end='')
         sys.stdout.flush()
         if isFast:
-            sleep(0.04)
+            sleep(typewriter_speed)
         else:
             sleep(0.1)
 
@@ -69,12 +73,13 @@ def loadEnemies(roomID):
 def enemiesAttack(enemies_objects):
     global health
     for item in enemies_objects:
-        damageTaken = item.attack()
-        if item.getCurHealth() <= 0:
-            item.die()
-            enemies_objects.remove(item)
-        if damageTaken:
-            takeDamage(damageTaken)
+        if not item.is_dead:
+            damageTaken = item.attack()
+            if item.getCurHealth() <= 0 and not item.is_dead:
+                item.die()
+            if damageTaken:
+                takeDamage(damageTaken)
+
 
 #Thanks to @Simona Chovancová on stackoverflow for this
 def getStructNameFromValue(key, value):
@@ -112,7 +117,8 @@ def listAchievements():
               "\n")
 
 
-def makeChoice(options):
+def makeChoice(options, forceChoice = 0):
+    inval = False
     print(Fore.GREEN)
     counter = 0
     for item in options:
@@ -121,14 +127,27 @@ def makeChoice(options):
     num_list = list(range(1, (counter + 1)))
     num_list = map(str, num_list)
     num_list = list(num_list)
-    while True:
-        rc = readchar()
-        if rc in num_list:
-            break
-        else:
-            print(Fore.YELLOW + "Invalid choice!")
+    rc = None
+    if not forceChoice:
+      while True:
+          rc = readchar()
+          if rc in num_list:
+              if inval:
+                  term.up(value=1)
+                  term.clearLine()
+              print(Fore.RESET)
+              return int(rc)
+          else:
+              if not inval:
+                  print(Fore.YELLOW + "Invalid choice!")
+                  inval = True
     print(Fore.RESET)
-    return int(rc)
+    return forceChoice
+
+def getChoiceInput(prompt, promptIsFast=True, symbol=">", color=Fore.GREEN):
+    #No space needed for symbol
+    typewriter(color + prompt + " " + Fore.RESET, promptIsFast)
+    return input(symbol + " ")
 
 
 def confirmPurchase(item_name, price):
@@ -224,21 +243,27 @@ def secretPitRoomPuzzleTrigger():
         if keyboard_choice == 1:
             answer = input("What do you type? >")
             if answer.lower() == "footsteps":
-              typewriter("You push the GO button and hear the distinctive sound of a spring retracting, followed by  the grinding of ancient gears rotating. The sound of metal scraping past metal fills your ears. Suddenly, it stops. After a few seconds, you hear a clunk and the sound of water rusintg into a bucket. Slowly, a section of wall slides away, as the hundred-year-old machinery strains to move its immense weight. Lying in an alcove behind it is a shiny key.\n", isFast=True)
-              getLoot
+                typewriter(
+                    "You push the GO button and hear the distinctive sound of a spring retracting, followed by  the grinding of ancient gears rotating. The sound of metal scraping past metal fills your ears. Suddenly, it stops. After a few seconds, you hear a clunk and the sound of water rushing into a bucket. Slowly, a section of wall slides away, as the hundred-year-old machinery strains to move its immense weight. Lying in an alcove behind it is a shiny key.\n",
+                    isFast=True)
+                getLoot()
             else:
-              puzzle_tries_remaining -= 1
-              if puzzle_tries_remaining <= 0:
-                typewriter("The click comes one more time, and then silence. Suddenly the floor tiles under you fall away, and you drop screaming into the void.", isFast=True)
-                sleep(1)
-                die()
-              else:
-                typewriter("Suddenly,you hear something sliding down the wall behind the keyboard. It travels lower and lower, but suddenly rams into something. As it grinds back up, there is a click from something under the floor. You remember what the inscription said. 'Three tries you have, no more no less.'")
-                secretPitRoomPuzzleTrigger()
+                puzzle_tries_remaining -= 1
+                if puzzle_tries_remaining <= 0:
+                    typewriter(
+                        "The click comes one more time, and then silence. Suddenly the floor tiles under you fall away, and you drop screaming into the void.",
+                        isFast=True)
+                    sleep(1)
+                    die()
+                else:
+                    typewriter(
+                        "Suddenly,you hear something sliding down the wall behind the keyboard. It travels lower and lower, but suddenly rams into something. As it grinds back up, there is a click from something under the floor. You remember what the inscription said. 'Three tries you have, no more no less.'"
+                    )
+                    secretPitRoomPuzzleTrigger()
         else:
             secretPitRoomPuzzleTrigger()
     elif start_choice == 3:
-      pass
+        pass
 
 
 def printHealth():
@@ -259,7 +284,18 @@ def die():
     os.system("clear")
     sleep(1)
     typewriter(Fore.RED + "You have died.")
-    game_running = False
+    for x in ('''\n\n 
+    ____  ____ ____   ____     ___ _   _ ____  ____ 
+  / _  |/ _  |    \ / _  )   / _ \ | | / _  )/ ___)
+  ( ( | ( ( | | | | ( (/ /   | |_| \ V ( (/ /| |    
+  \_|| |\_||_|_|_|_|\____)   \___/ \_/ \____)_|    
+  (_____|                                                  
+  '''):
+        print(x, end='')
+        sys.stdout.flush()
+        sleep(0.005)
+    sleep(3)
+    sys.exit(0)
 
 
 def takeDamage(damage):
@@ -279,14 +315,22 @@ def attackMonster(enemy_data):
               str(player_damage) + " damage!")
         enemy_data[0].takeDamage(player_damage)
 
+
 #thanks to @python_user on stackoverflow for this
 def checkLists(listone, listtwo):
-    return len(listone) == len(listtwo) and all(isinstance(i, enemy.Enemy) is isinstance(j, enemy.Enemy) for i, j in zip(listone, listtwo))
+    return len(listone) == len(listtwo) and all(
+        isinstance(i, enemy.Enemy) is isinstance(j, enemy.Enemy)
+        for i, j in zip(listone, listtwo))
+
 
 def printRoom(roomID):
     global enemies_list
     room = getRoomData(roomID)
-    loot = room.get("loot")
+    try:
+      loot = room.get("loot")
+    except AttributeError as e:
+      print("CHECK FOR TYPOS CRUSTY DAMMIT")
+      raise e
     if len(room.get("enemies")) == 0:
         pass
     typewriter(room.get("roomDesc"), isFast=True)
@@ -301,31 +345,84 @@ def printRoom(roomID):
     exits = room.get("exits")
     print("Exits: " + Fore.GREEN, end="")
     if len(exits):
-      print(*exits)
+        print(*exits)
     else:
-      print("None")
+        print(Fore.RED + "None")
     print(Fore.RESET)
     triggerEvents(roomID)
     _temp_enemies_list = loadEnemies(room)
     #print(enemies_list)
     #print(_temp_enemies_list)
     if not checkLists(enemies_list, _temp_enemies_list):
-      #print("firsttime")
-      enemies_list = _temp_enemies_list
+        #print("firsttime")
+        enemies_list = _temp_enemies_list
     if len(enemies_list) != 0:
         enemiesAttack(enemies_list)
 
 
 def credits():
+    #damn this turgid code
     os.system("clear")
-    typewriter(Fore.GREEN + "Credits:\n")
-    typewriter(
-        Fore.CYAN + "CrustyFriends" + Fore.RESET + ": Game Design/Ideas\n",
-        isFast=True)
-    typewriter(
-        Fore.CYAN + "tehgingergod/Blue" + Fore.RESET + ": Programming\n",
-        isFast=True)
-    print("(Enter to continue)")
+    print(term.center(Fore.GREEN + "Credits:"))
+    sleep(2)
+    print(term.center(Fore.BLUE + "Programmer" + Fore.RESET))
+    sleep(1)
+    print(term.center("tehgingergod/Blue"))
+    sleep(1)
+    print(term.center(Fore.BLUE + "Creative designer" + Fore.RESET))
+    sleep(1)
+    print(term.center("CrustyFriends"))
+    sleep(1)
+    print(term.center(Fore.BLUE + "Technician" + Fore.RESET))
+    sleep(1)
+    print(term.center("tehgingergod/Blue"))
+    sleep(1)
+    print(term.center(Fore.BLUE + "Developer" + Fore.RESET))
+    sleep(1)
+    print(term.center("tehgingergod/Blue"))
+    sleep(1)
+    print(term.center(Fore.BLUE + "Story" + Fore.RESET))
+    sleep(1)
+    print(term.center("CrustyFriends"))
+    sleep(1)
+    print(term.center(Fore.BLUE + "Official Testers" + Fore.RESET))
+    sleep(1)
+    print(term.center("CrustyFriends"))
+    print(term.center("tehgingergod/Blue"))
+    sleep(1)
+    print(term.center(Fore.BLUE + "Level Design" + Fore.RESET))
+    sleep(1)
+    print(term.center("CrustyFriends"))
+    sleep(1)
+    print(term.center(Fore.BLUE + "Special Thanks" + Fore.RESET))
+    sleep(1)
+    print(term.center("Lirynx"))
+    print(term.center("@python_user"))
+    print(term.center("@Simona Chovancová"))
+    sleep(2)
+    for x in ('''
+    
+   
+  _____ _                 _           __               
+ /__   | |__   __ _ _ __ | | _____   / _| ___  _ __    
+   / /\| '_ \ / _` | '_ \| |/ / __| | |_ / _ \| '__|   
+  / /  | | | | (_| | | | |   <\__ \ |  _| (_) | |      
+  \/   __| |_|\__,_|__ |_|_|\_|___/ |_|  \___/|_|      
+ _ __ | | __ _ _   _(_)_ __   __ _    ___  _   _ _ __  
+| '_ \| |/ _` | | | | | '_ \ / _` |  / _ \| | | | '__| 
+| |_) | | (_| | |_| | | | | | (_| | | (_) | |_| | |    
+| .__/|_|\__,_|\__, |_|_| |_|\__, |  \___/ \__,_|_|    
+|_|         __ _____ _ _ __ _____/___  / \             
+           / _` |/ _` | '_ ` _ \ / _ \/  /             
+          | (_| | (_| | | | | | |  __/\_/              
+           \__, |\__,_|_| |_| |_|\___\/                
+           |___/\n\n\n'''):
+        print(x, end='')
+        sys.stdout.flush()
+        sleep(0.005)
+
+    sleep(3)
+    typewriter(Fore.GREEN + "(Enter to continue)" + Fore.RESET)
     while readkey() != "\r":
         pass
 
@@ -371,7 +468,7 @@ def getLoot(roomID, itemName):
                 elif item.get("rarity") == "rare":
                     print(Fore.CYAN, end="")
                 elif item.get("rarity") == "key":
-                  print(Fore.MAGENTA)
+                    print(Fore.MAGENTA)
                 print(item.get("name"))
                 if item.get("name") == "Gold Coins":
                     monies += 10
@@ -401,6 +498,98 @@ def displayInventory():
         print(Fore.RESET + Back.RESET)
 
 
+def debugMenu():
+    os.system("clear")
+    global cur_room, health
+    print("Welcome to the Explore debug menu, you cheater.")
+    choice = makeChoice([
+        "Teleport to a room", "Die",
+        ("Restart the game " + Fore.YELLOW + "(WARNING: WILL NOT SAVE GAME)" +
+         Fore.RED), ("[GOD MODE]" + Fore.GREEN), "Save options", "Exit"
+    ])
+    if choice == 1:
+        _room = getChoiceInput("Enter the room ID")
+        if _room == "UUDDLRLRBA":
+          typewriter("Congrats! You found the secretest of secrets! keep this code in mind... \n")
+          sleep(2)
+          typewriter("888267355346283999103846894372197579432978\n" + Fore.GREEN + "(Enter to continue)" + Fore.RESET)
+          while readkey() != "\r":
+            pass
+
+        else:
+          cur_room = _room
+    elif choice == 2:
+        die()
+    elif choice == 3:
+        os.system("clear")
+        os.execl(sys.executable, sys.executable, *sys.argv)
+    elif choice == 4:
+        print("[↓ GOD MENU----------]")
+        god_choice = makeChoice(["Refill health", "Get any item", "Back"])
+        if god_choice == 1:
+            health = 30
+            printHealth()
+        elif god_choice == 2:
+          inventory.append(getChoiceInput("Enter the item ID"))
+        else:
+            debugMenu()
+    elif choice == 5:
+        print("[↓ Save menu----------]")
+        save_choice = makeChoice(
+            ["Force a save", "Wipe save", "View save data", "Back"])
+        if save_choice != 4:
+            typewriter(
+                "Please wait until we actually add savefiles, thanks!",
+                isFast=True)
+            sleep(1.5)
+        else:
+            debugMenu()
+    else:
+        os.system("clear")
+        print(Fore.YELLOW + "Monies: " + str(monies) + Fore.RESET + "\n")   
+        return
+    os.system("clear")
+
+def settingsSubmenu():
+  global typewriter_speed
+  print("[↓ Settings menu----------]")
+  typewriter_label = ""
+  if typewriter_speed == 0.02:
+    typewriter_label = "Fast"
+  elif typewriter_speed == 0.04:
+    typewriter_label = "Medium"
+  elif typewriter_speed == 0.06:
+    typewriter_label = "Slow"
+  else:
+    typewriter_label = "Hacker"
+  settings_choice = makeChoice([("Typewriter speed [" + typewriter_label + "]"), "Okie"])
+  if settings_choice == 1:
+    if typewriter_speed != 0.06:
+      typewriter_speed += 0.02
+    else:
+      typewriter_speed = 0.02
+    os.system("clear")
+    pauseGame(2)
+  else:
+        pauseGame()
+
+def pauseGame(forceChoice = 0):
+    os.system("clear")
+    _room = getRoomData(cur_room)
+    #not procrastinating! a pause menu is a TOTALLY HELPFUL FEATURE RIGHT? mhm
+    print("Game paused!\nCurrent room: " + _room.get("roomName"))
+    choice = makeChoice(["Resume", "Settings", "Exit Game"], forceChoice)
+    if choice == 1:
+      os.system("clear")
+      print(Fore.YELLOW + "Monies: " + str(monies) + Fore.RESET + "\n")
+      return
+    elif choice == 2:
+      settingsSubmenu()
+    else:
+      sys.exit(0)
+    
+
+
 print("Done")
 
 sleep(0.3)
@@ -422,6 +611,7 @@ try:
             Fore.GREEN + "\n\n[1] PLAY" + Fore.RESET + "\n", isFast=True)
         typewriter(
             Fore.YELLOW + "[2] CREDITS" + Fore.RESET + "\n", isFast=True)
+        typewriter(Fore.YELLOW + "[3] EXIT" + Fore.RESET + "\n", isFast=True)
         typewriter(
             Fore.RED +
             "\n\nWARNING: DEMO BUILD\nGAME IS UNSTABLE AND MAY CRASH AT ANY TIME\n"
@@ -433,6 +623,11 @@ try:
             break
         elif rc == "2":
             credits()
+        elif rc == "3":
+            typewriter("Bye! Hope to see ya again soon!")
+            sleep(1.5)
+            os.system("clear")
+            sys.exit(0)
 
     typewriter(
         "You are a young explorer looking to rid the world of evil, conquer the darkness! You have arrived at the entrence of a dungeon notorious for all the adventurers that have gone missing within. But you know that you can defeat whatever is lurking in the depths of the dungeon. And so you decend into the darkness below...\n",
@@ -471,6 +666,16 @@ try:
             cur_room = move(cur_room, 5)
         elif command == "debug":
             achievementGet("curiosity")
+        elif command == "UUDDLRLRBA":
+            debugMenu()
+        elif command == "pause":
+            pauseGame()
+        elif command == "zx crtf gymn gymn gymn gymn ymng guymn7guymn7mnguymn7uymn7gfguyn7m":
+            typewriter("I'm sorry you did W H A T\n", isFast=True)
+        elif command.lower() == "f" and cur_room == "skelly_memorial":
+            typewriter(
+                "You kneel next to the rock, and touch it. Skelly will remain in your memory forever.\n",
+                isFast=True)
         elif "pick" in command:
             _pick_args = command.split()
             _pick_args.pop(0)
@@ -490,23 +695,18 @@ try:
             listAchievements()
         elif command == "help":
             typewriter(Fore.GREEN + "Help:" + Fore.RESET + "\n")
-            print("go" + Fore.GREEN + " [north|east|south|west]" + Fore.RESET +
+            print("go" + Fore.GREEN + " [north|east|south|west|down]" + Fore.RESET +
                   ": Change the room you're in\n")
-            print("pick: Pick up any items in the room you're in.\n")
+            print("pick " + Fore.GREEN + "[item name]" + Fore.RESET +
+                  ": Pick up the specified item.\n")
             print("inventory: List the items in your inventory.\n")
+            print("achievments: List your achievments\n")
+            print("pause: Pause the game\n")
+            print("a/attack: Attack a monster\n")
+
             print("-----------------\n")
         else:
             print(Fore.RED + "Invalid command." + Fore.RESET)
-    for x in (Fore.GREEN + '''\n\n 
-    ____  ____ ____   ____     ___ _   _ ____  ____ 
-  / _  |/ _  |    \ / _  )   / _ \ | | / _  )/ ___)
-  ( ( | ( ( | | | | ( (/ /   | |_| \ V ( (/ /| |    
-  \_|| |\_||_|_|_|_|\____)   \___/ \_/ \____)_|    
-  (_____|                                                  
-  ''' + Fore.RESET):
-        print(x, end='')
-        sys.stdout.flush()
-        sleep(0.005)
 except Exception as e:
     print("oh shite, blue screwed up")
     raise e

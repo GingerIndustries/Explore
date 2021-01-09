@@ -2,6 +2,25 @@
   "curiosity": {
     "name": "Curiosity does not go unrewarded!",
     "description": "Use the debug command"
+  },
+
+  "stacked": {
+    "name": "Stacked",
+    "description": "Acquire every item in the game!"
+  },
+
+  "stronk": {
+    "name": "Stronk",
+    "description": "Kill a monster"
+  },
+
+  "stacked": {
+    "name": "",
+    "description": "Use the debug command"
   }
   
 }
+  
+
+  
+

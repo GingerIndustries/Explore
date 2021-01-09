@@ -33,7 +33,7 @@
       "neighboring_rooms": {
         "south": "the_prison",
         "north": "start",
-        "west": "alley_2"
+        "west": "skelly_memorial"
       },
       "entry_trigger": "",
       "enemies": []
@@ -68,7 +68,7 @@
       ],
       "neighboring_rooms": {
         "north": "blood_room",
-        "east": "alley_2",
+        "east": "skelly_memorial",
         "west": "storage_room"
       },
       "entry_trigger": "",
@@ -80,27 +80,33 @@
       "exits": [
         "north",
         "east",
-        "west"
+        "west",
+        "south"
       ],
       "loot": [],
       "neighboring_rooms": {
         "north": "rat_room",
         "east": "start",
-        "west": "blood_room"
+        "west": "blood_room",
+        "south": "skelly_memorial"
       },
       "entry_trigger": "",
-      "enemies": []
+      "enemies": [
+        "sewer_monster"
+      ]
     },
     "the_prison": {
       "roomName": "The prison",
-      "roomDesc": "You step into this room and immediately notice bars in front of you, some containing what looks like dried up bones. You also notice somethng shiny on the floor...",
+      "roomDesc": "You step into this room and immediately notice bars in front of you, some containing what looks like dried up bones. You also notice something shiny on the floor...",
       "exits": [
         "east",
         "west",
         "north",
         "south"
       ],
-      "loot": ["vault_key"],
+      "loot": [
+        "vault_key"
+      ],
       "neighboring_rooms": {
         "east": "dark_room",
         "west": "vault_room",
@@ -108,7 +114,9 @@
         "south": "catacombs"
       },
       "entry_trigger": "",
-      "enemies": ["skelly"]
+      "enemies": [
+        "skelly"
+      ]
     },
     "yeet_room": {
       "roomName": "the yeet room",
@@ -116,7 +124,9 @@
       "exits": [
         "east"
       ],
-      "loot": ["old food"],
+      "loot": [
+        "old food"
+      ],
       "neighboring_rooms": {
         "east": "vault_room",
         "west": "sink_room"
@@ -130,7 +140,8 @@
       "exits": [
         "east",
         "west",
-        "south"
+        "south",
+        "north"
       ],
       "loot": [
         "gold_coins"
@@ -138,7 +149,8 @@
       "neighboring_rooms": {
         "east": "the_prison",
         "west": "yeet_room",
-        "south": "the_gate"
+        "south": "the_gate",
+        "north": "skelly_memorial"
       },
       "entry_trigger": "",
       "enemies": []
@@ -178,12 +190,12 @@
       ],
       "loot": [],
       "neighboring_rooms": {
-        "west": "stair_top",
+        "west": "stairs_top",
         "down": "puzzle_room"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
-   },
+    },
     "rat_room": {
       "roomName": "The rat room",
       "roomDesc": "The far wall of this room is all dark, and you hear shuffling near it.",
@@ -196,11 +208,13 @@
       "neighboring_rooms": {
         "east": "pantry",
         "south": "sewer_room",
-        "north" : "garbage_room"
-    },
+        "north": "garbage_room"
+      },
       "entry_trigger": "",
-      "enemies": []
-   },
+      "enemies": [
+        "rat"
+      ]
+    },
     "pantry": {
       "roomName": "The pantry",
       "roomDesc": "This rooms walls are lined with shelves covered in food, mostly moldy.",
@@ -209,12 +223,14 @@
         "south",
         "east"
       ],
-      "loot": ["food"],
+      "loot": [
+        "food"
+      ],
       "neighboring_rooms": {
         "west": "rat_room",
         "south": "start",
         "east": "den"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
     },
@@ -226,12 +242,13 @@
         "south",
         "east"
       ],
-      "loot": ["old food"],
+      "loot": [
+        "old food"
+      ],
       "neighboring_rooms": {
         "south": "rat_room",
         "west": "stair_room",
         "east": "alley_3"
-
       },
       "entry_trigger": "",
       "enemies": []
@@ -246,11 +263,11 @@
       "loot": [],
       "neighboring_rooms": {
         "north": "stair_room",
-        "south" : "blood_room"
+        "south": "blood_room"
       },
       "entry_trigger": "",
       "enemies": []
-   },
+    },
     "stair_room": {
       "roomName": "Stair Room",
       "roomDesc": "There's a rickety staircase on the west wall of this room.",
@@ -262,13 +279,12 @@
       "loot": [],
       "neighboring_rooms": {
         "east": "garbage_room",
-        "south" : "alley_1",
+        "south": "alley_1",
         "west": "stairs_top"
       },
       "entry_trigger": "",
       "enemies": []
-   },
-   
+    },
     "stairs_top": {
       "roomName": "Top of the Stairs",
       "roomDesc": "You're on a small landing on top of the stairs.",
@@ -279,26 +295,32 @@
       "loot": [],
       "neighboring_rooms": {
         "east": "stair_room",
-        "south" : "pit_room"
+        "south": "pit_room"
       },
       "entry_trigger": "",
       "enemies": []
     },
-    "alley_2": {
-      "roomName": "Alley 2",
-      "roomDesc": "This is a long, narrow corridor with a light at the end.",
+    "skelly_memorial": {
+      "roomName": "Skelly memorial room",
+      "roomDesc": "In the middle of this room is what looks like a memorial, a tombstone covered and surrounded in flowers. The stone reads, 'A memorial to Skelly the Undying, the test monster of the gods above. Sadly, his immortality didn't last forever. May he rest in peace.' [Type F to pay respects]",
       "exits": [
         "west",
-        "east"
+        "east",
+        "north",
+        "south"
       ],
-      "loot": ["old food"],
+      "loot": [
+        "old food"
+      ],
       "neighboring_rooms": {
         "west": "tall_room",
-        "east" : "knife_room"
+        "east": "knife_room",
+        "north": "sewer_room",
+        "south": "vault_room"
       },
       "entry_trigger": "",
       "enemies": []
-   },
+    },
     "sink_room": {
       "roomName": "The sink room",
       "roomDesc": "this room is mostly empty, exept for a broken sink and toilet on the wall.",
@@ -312,10 +334,10 @@
         "north": "storage_room",
         "east": "yeet_room",
         "south": "the_library"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
-   },
+    },
     "storage_room": {
       "roomName": "The storage room",
       "roomDesc": "this room has a bunch of crates and boxes lying around, it looks like it used to be a storage room.",
@@ -329,10 +351,10 @@
         "north": "pipe_room",
         "east": "tall_room",
         "south": "sink_room"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
-   },
+    },
     "pipe_room": {
       "roomName": "The pipe room",
       "roomDesc": "this rooms ceiling is covered in pipes, some are bent and leaking sludge.",
@@ -342,10 +364,10 @@
       "loot": [],
       "neighboring_rooms": {
         "south": "storage_room"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
-   },
+    },
     "catacombs": {
       "roomName": "The catacombs",
       "roomDesc": "You enter this room and get the smell of death, it is a dark passageway, and the walls look like they're made of skulls. It seems like these are the catacombs.",
@@ -359,10 +381,10 @@
         "north": "the_prison",
         "south": "deep_catacombs",
         "east": "sarcophogus_chamber"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
-   },
+    },
     "deep_catacombs": {
       "roomName": "The deep catacombs",
       "roomDesc": "You continue through the catacombs, its getting darker and more cramped, and the stench is becoming more foul. You think you see something move ahead of you...",
@@ -374,10 +396,11 @@
       "neighboring_rooms": {
         "north": "catacombs",
         "south": "deepest_catacombs"
-    },
+      },
       "entry_trigger": "",
-      "enemies": []
-   },
+      "enemies": ["skelly"
+      ]
+    },
     "deepest_catacombs": {
       "roomName": "The deepest catacombs",
       "roomDesc": "It is nearly pitch black, and the smell is unbearable, but you see a faint red light ahead. You walk forward and stumble into a less cramped area, but you sense you are not alone...",
@@ -387,10 +410,10 @@
       "loot": [],
       "neighboring_rooms": {
         "north": "deep_catacombs"
-    },
+      },
       "entry_trigger": "",
-      "enemies": [] 
-   },
+      "enemies": []
+    },
     "sarcophogus_chamber": {
       "roomName": "The sarcophogus chamber",
       "roomDesc": "The floor is littered with broken stone, and a cracked sarcophogus in the middle, with yellowy-green fumes rising from the cracks.",
@@ -400,10 +423,10 @@
       "loot": [],
       "neighboring_rooms": {
         "west": "catacombs"
-    },
+      },
       "entry_trigger": "",
-      "enemies": []
-   },
+      "enemies": ["zombo"]
+    },
     "the_library": {
       "roomName": "The library",
       "roomDesc": "The rooms walls are lined with shelves covered in ancient-looking books, most of the titles look like they are written in an alien language.",
@@ -413,10 +436,10 @@
       "loot": [],
       "neighboring_rooms": {
         "north": "sink_room"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
-   },
+    },
     "den": {
       "roomName": "The den",
       "roomDesc": "The floor is covered in rags, and they seem clumped together in the middle, it looks like some sort of bed...",
@@ -430,7 +453,7 @@
         "west": "pantry",
         "north": "slime_room",
         "east": "farm"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
     },
@@ -445,7 +468,7 @@
       "neighboring_rooms": {
         "south": "den",
         "west": "alley_3"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
     },
@@ -455,10 +478,12 @@
       "exits": [
         "west"
       ],
-      "loot": ["food"],
+      "loot": [
+        "food"
+      ],
       "neighboring_rooms": {
         "west": "den"
-    },
+      },
       "entry_trigger": "",
       "enemies": []
     },
@@ -472,7 +497,7 @@
       "loot": [],
       "neighboring_rooms": {
         "west": "garbage_room",
-        "east" : "slime_room"
+        "east": "slime_room"
       },
       "entry_trigger": "",
       "enemies": []
@@ -480,16 +505,11 @@
     "puzzle_room": {
       "roomName": "Puzzle room",
       "roomDesc": "You land hard, your knees buckling,and you crumple to the ground. Amazingly, you seem to be unhurt, so you brush yourself off and look around...",
-      "exits": [
-      ],
+      "exits": [],
       "loot": [],
-      "neighboring_rooms": {
-      },
+      "neighboring_rooms": {},
       "entry_trigger": "secretPitRoomPuzzleTrigger",
       "enemies": []
     }
-   }
-  } 
-   
-   
-  
+  }
+}

@@ -64,7 +64,7 @@
   "rat": {
     "name": "Rat",
     "delay": 1,
-    "health": 15,
+    "health": 10,
     "type": "monster",
     "difficulty": 1,
     "loot": []

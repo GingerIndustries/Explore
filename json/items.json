@@ -15,7 +15,7 @@
   "gold_coins" : {
     "name": "Gold Coins",
     "rarity": "rare"
-},
+  },
   "vault_key" : {
     "name": "Vault Key",
     "rarity": "key"
@@ -27,5 +27,9 @@
   "food" : {
     "name": "Food",
     "rarity": "uncommon"
+  },
+  "888267355346283999103846894372197579432978" : {
+    "name": "Secret Item idk",
+    "rarity": "common"
   }
 }

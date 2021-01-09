@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "repl_python3_Explore"
 version = "0.1.0"
-description = "A text-based dungeon-crawling treasure-finding monster-battling open-source Python-powered RPG game"
+description = "A text-based dungeon-crawling treasure-finding monster-battling open-source Python-powered RPG game lauGHS in TcrF"
 authors = ["Blue/@tehgingergod", "Crusty/@CrustyFriends"]
 
 [tool.poetry.dependencies]
@@ -9,7 +9,6 @@ python = "^3.8"
 colorama = "^0.4.4"
 readchar = "^2.0.1"
 py-term = "^0.6"
-play-sounds = "^0.1.3"
 
 [tool.poetry.dev-dependencies]
 
