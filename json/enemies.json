@@ -54,7 +54,7 @@
     "loot": []
   },
   "mega_blurg": {
-    "name": "",
+    "name": "Mega Blurg",
     "delay": 3,
     "health": 40,
     "type": "monster",

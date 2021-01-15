@@ -45,7 +45,7 @@ try:
     with open("json/achievements.json", "r") as read_file:
         achievments_data = json.load(read_file)
 except Exception as e:
-    print("shite, crusty screwed up")
+    print("shite, crusty screwed up")# when would this ever happen? I doNT knOW
     raise e
 
 
@@ -114,7 +114,7 @@ def listAchievements():
                   itemData.get("description") + "\n")
     else:
         print(Fore.RED + "You don't have any achievements!" + Fore.RESET +
-              "\n")
+              "\n") # you useless piece of shite
 
 
 def makeChoice(options, forceChoice = 0):
@@ -192,6 +192,7 @@ def trigger_gate():
                 "Well little man, get ready to get MASHED!",
                 isFast=True)
             #fighting code goes here
+            die() #that'll teach him
         elif ogre_choice_1 == 2:
             typewriter(
                 Fore.RED + "Ogre: " + Fore.RESET +

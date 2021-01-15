@@ -12,7 +12,7 @@
       "loot": [],
       "neighboring_rooms": {
         "north": "pantry",
-        "east": "pit_room",
+        "east": "uh_oh_room",
         "west": "sewer_room",
         "south": "knife_room"
       },
@@ -510,6 +510,19 @@
       "neighboring_rooms": {},
       "entry_trigger": "secretPitRoomPuzzleTrigger",
       "enemies": []
+    },
+    "uh_oh_room": {
+      "roomName": "Uh oh room",
+      "roomDesc": "You immediately get the feeling that something bad is about to happen.",
+      "exits": [
+        "west"
+      ],
+      "loot": [],
+      "neighboring_rooms": {
+        "west": "start"
+      },
+      "entry_trigger": "",
+      "enemies": ["mega_blurg"]
     }
   }
 }
