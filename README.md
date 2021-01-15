@@ -8,8 +8,8 @@ Explore is a text-based dungeon-crawling treasure-finding monster-battling open-
 Explore installation (on Windows)
 ---------------------------------
 To install Explore on Windows without donwloading the built file,
-1. Download the complete code from [here](https://github.com/GingerIndustries/Explore/archive/master.zip).
-2. Install Python from [here](https://www.python.org/ftp/python/3.9.1/python-3.9.1-amd64.exe)
+1. Download the complete code from [here](https://github.com/GingerIndustries/Explore/archive/master.zip) and extract it to somewhere you won't lose it.
+2. Install Python from [here](https://www.python.org/ftp/python/3.9.1/python-3.9.1-amd64.exe) and run the .exe it downloads.
 3. Run install-explore-deps.bat
 4. Done! You can now run explore.bat to get started.
 
