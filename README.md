@@ -5,6 +5,14 @@ Explore documentation
 
 Explore is a text-based dungeon-crawling treasure-finding monster-battling open-source Python-powered RPG game! It is designed to feel like the classic text-based RPG games of old, like Zork and Adventure, except powered by modern Python!
 
+Explore installation (on Windows)
+---------------------------------
+To install Explore on Windows without donwloading the built file,
+1. Download the complete code from [here](https://github.com/GingerIndustries/Explore/archive/master.zip).
+2. Install Python from [here](https://www.python.org/ftp/python/3.9.1/python-3.9.1-amd64.exe)
+3. Run install-explore-deps.bat
+4. Done! You can now run explore.bat to get started.
+
 How does Explore work?
 ---------------------
 The game is designed to be easily customizable and changable. Every room, enemy, boss, and item is stored inside a .json file instead of being hardcoded into the game itself. This allows for easy customization as the main script interprets all of the data, meaning all you have to do to add a new room is add another to the file!
